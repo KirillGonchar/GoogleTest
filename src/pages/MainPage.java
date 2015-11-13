@@ -16,6 +16,21 @@ public class MainPage {
         return new LoginPage();
     }
 
+    public MainPage login(){
+        clickLogIn().
+                enterLogin("sergiitst4").
+                pressNext().
+                enterPassword().
+                checkRememberMe().
+                clickSignIn();
+        return this;
+    }
+
+    public InboxPage getInboxPage(){
+        getDriver().get("https://mail.google.com/");
+        return new InboxPage();
+    }
+
     public boolean isPresent() {
         return getDriver().getTitle().contains("Google");
     }
