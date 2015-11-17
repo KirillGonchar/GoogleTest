@@ -1,9 +1,13 @@
 package pages;
 
+import data.EmailData;
 import elements.Button;
 import elements.TextInput;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnhandledAlertException;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static conf.TestManager.getDriver;
 import static conf.TestManager.waitInSeconds;
@@ -25,18 +29,17 @@ public class InboxPage {
         composeButton.waitForElement();
         composeButton.click();
         sendButton.waitForElement();
-        receiverInput.type(address);
-        subjectInput.type("Subject");
-        bodyInput.type("Body");
+        EmailData emailData = new EmailData(address);
+        receiverInput.type(emailData.getReceiversInString());
+        subjectInput.type(emailData.getSubject());
+        bodyInput.type(emailData.getBody());
         sendButton.click();
         waitInSeconds(5);
         getDriver().navigate().refresh();
-//        getDriver().switchTo().activeElement().submit();
-//        getDriver().switchTo().defaultContent();
         return this;
     }
 
-    public boolean isEmailPresent(String s) {
+    public boolean isEmailPresent(String... s) {
         email.waitForElement();
         return email.isPresent();
     }

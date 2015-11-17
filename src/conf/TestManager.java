@@ -1,5 +1,7 @@
 package conf;
 
+import data.UserData;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +14,6 @@ import pages.MainPage;
 public class TestManager {
     protected static WebDriver driver;
     private String baseUrl = "https://www.google.com/";
-    protected String emailBaseUrl = "https://mail.google.com/";
     protected MainPage mainPage;
 
     @Before
@@ -20,6 +21,7 @@ public class TestManager {
         driver = new FirefoxDriver();
         getDriver().get(baseUrl);
         mainPage = new MainPage();
+        driver.manage().window().maximize();
     }
 
     @After
@@ -38,4 +40,10 @@ public class TestManager {
             e.printStackTrace();
         }
     }
+
+    public static String getUsername(){
+        UserData userData = new UserData("sergiitst4");
+        return userData.getLogin();
+    }
+
 }
